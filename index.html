@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>دليل قروبات الهندسة</title>
+    <meta name="description" content="وصول سريع ومنظم لجميع قروبات ومبادرات الهندسة.">
+    <meta name="theme-color" content="#0a0a0a">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <style>
+      /* --- 🎨 FINAL POLISHED DESIGN 🎨 --- */
+
+      :root {
+        --primary: #5e9cff;
+        --primary-dark: #4b7dcc;
+        --warning: #FFC107; /* Warm Gold for consistency */
+        --bg: #0a0a0a;
+        --bg-card: rgba(20, 20, 22, 0.75);
+        --border: rgba(255, 255, 255, 0.1);
+        --text-light: #f0f0f0;
+        --text-medium: #a9a9b9;
+        --font-body: "Cairo", sans-serif;
+        --font-title: "IBM Plex Sans Arabic", sans-serif;
+        --radius: 16px;
+        --transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        --transition-smooth:0.5s cubic-bezier(0.2,0.8,0.2,1);
+        --rgb-primary: 94, 156, 255;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+      html { scroll-behavior: smooth; }
+      @keyframes gradient-animation { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+      @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+      @keyframes move-aurora-1 { from { transform: translate(0, 0) rotate(0deg) scale(1); } to { transform: translate(15vw, 20vh) rotate(120deg) scale(1.2); } }
+      @keyframes move-aurora-2 { from { transform: translate(0, 0) rotate(0deg) scale(1.2); } to { transform: translate(-10vw, -15vh) rotate(-150deg) scale(1); } }
+
+      body { font-family: var(--font-body); background-color: var(--bg); color: var(--text-medium); direction: rtl; overflow-x: hidden; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; transition: background-color var(--transition-smooth), color var(--transition-smooth); }
+      .app-wrapper { min-height: 100vh; position: relative; padding: 3rem 1.5rem; }
+      .aurora-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: -1; }
+      .aurora-dot { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.2; transition: background-color .5s ease; }
+      .aurora-dot-1 { width: 60vw; height: 60vw; background-color: var(--primary); top: 5%; left: 0%; animation: move-aurora-1 25s infinite alternate ease-in-out; }
+      .aurora-dot-2 { width: 50vw; height: 50vw; background-color: var(--primary-dark); bottom: 10%; right: 5%; animation: move-aurora-2 30s infinite alternate-reverse ease-in-out; }
+      
+      .container { width: 100%; max-width: 1200px; z-index: 1; margin: 0 auto; position: relative; }
+
+      .page-header { text-align: center; margin-bottom: 2rem; animation: fadeInUp 0.8s ease both; }
+      .page-title { font-family: var(--font-title); font-weight: 700; font-size: clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 0.5rem; background: linear-gradient(90deg, var(--primary-dark), var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200% 200%; animation: gradient-animation 5s ease-in-out infinite; }
+      .page-subtitle { color: var(--text-medium); font-size: clamp(1rem, 2vw, 1.2rem); animation: fadeInUp 0.8s ease .2s both; letter-spacing: 0.5px; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+
+      /* --- ELEGANT INFINITE CAROUSEL SLIDER --- */
+      .filter-carousel-wrapper {
+        width: 100%; height: 80px; margin: 0 auto 4rem auto; position: relative; overflow: hidden;
+        -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+        mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+        animation: fadeInUp 0.8s ease .3s both; cursor: grab;
+      }
+      .filter-carousel-wrapper.is-dragging { cursor: grabbing; }
+
+      .filter-carousel-track { display: flex; align-items: center; position: absolute; top: 0; left: 0; height: 100%; will-change: transform; user-select: none; }
+      .filter-carousel-track.is-dragging { pointer-events: none; }
+      
+      .filter-btn {
+        background: transparent; border: none; font-family: var(--font-body); font-weight: 600;
+        font-size: 1.2rem; color: var(--text-medium); cursor: pointer; padding: 0.75rem 1.5rem;
+        white-space: nowrap; opacity: 0.6; transform: scale(0.85);
+        transition: transform 0.4s ease, opacity 0.4s ease, color 0.4s ease;
+        position: relative;
+      }
+      .filter-btn.is-active { color: var(--text-light); opacity: 1; transform: scale(1); }
+      .filter-btn.is-active::after {
+        content: ''; position: absolute; bottom: 5px; right: 50%; transform: translateX(50%);
+        width: 40%; height: 3px; background-color: var(--primary); border-radius: 2px;
+        transition: background-color 0.4s ease;
+      }
+
+      .links-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.75rem; }
+      .link-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.05); overflow: hidden; }
+      .link-card.is-hiding { opacity: 0; transform: scale(0.95); transition-delay: var(--animation-order, 0s) !important; }
+      .is-filtered-out { display: none; }
+      .link-card.is-showing { animation: fadeInUp 0.5s ease both; animation-delay: var(--animation-order, 0s); }
+      
+      .link-card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 15px 35px rgba(0,0,0,0.3), 0 0 25px rgba(var(--rgb-primary), 0.15), inset 0 1px 0 rgba(255,255,255,0.05); }
+      .span-full-width { grid-column: 1 / -1; }
+
+      .card-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border); transition: border-color var(--transition-smooth); }
+      .card-header .icon { font-size: 1.8rem; color: var(--primary); transition: color var(--transition); }
+      .card-title { font-family: var(--font-title); font-weight: 700; font-size: clamp(1.5rem, 4vw, 1.8rem); white-space: nowrap; color: var(--text-light); transition: color var(--transition-smooth); }
+      .card-section-title { font-family: var(--font-body); font-weight: 600; font-size: 1.1rem; color: var(--text-medium); margin: 1.5rem 0 1rem 0; display: flex; align-items: center; gap: 0.75rem; transition: color var(--transition-smooth); }
+      .card-section-title i { color: var(--primary-dark); transition: color 0.3s ease; } /* ✨ UPDATED INITIATIVE ICON COLOR */
+      .button-group { display: flex; flex-direction: column; gap: 1rem; }
+      
+      .link-button { display: flex; align-items: center; justify-content: center; gap: 1rem; padding: 0.9rem 1rem; border-radius: 10px; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--border); color: var(--text-medium); text-decoration: none; font-weight: 600; font-size: 1rem; transition: var(--transition-smooth); }
+      .link-button i { font-size: 1.2rem; transition: transform 0.2s ease; }
+      .link-button:hover { transform: translateY(-3px); border-color: var(--primary); background: rgba(var(--rgb-primary), 0.1); color: var(--text-light); }
+      .link-button:hover i { transform: scale(1.1); }
+      .link-button[data-type="channel"]:hover { border-color: #00e676; background-color: rgba(0, 230, 118, 0.1); color: #00e676; }
+      .link-button[data-type="group"]:hover { border-color: #74B9FF; background-color: rgba(116, 185, 255, 0.1); color: #74B9FF; }
+      .link-button[data-type="initiative"]:hover { border-color: var(--primary-dark); background-color: rgba(var(--rgb-primary), 0.1); color: var(--primary-dark); }
+      
+      .departments-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+      .department-section { border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; position: relative; overflow: hidden; background: radial-gradient(circle at 100% 0, rgba(var(--rgb-primary), 0.15), transparent 50%), rgba(0, 0, 0, 0.2); transition: background var(--transition), border-color var(--transition); }
+      .department-section:hover { border-color: rgba(var(--rgb-primary), 0.3); background: radial-gradient(circle at 100% 0, rgba(var(--rgb-primary), 0.25), transparent 60%), rgba(var(--rgb-primary), 0.05); }
+      .department-title { display: flex; align-items: center; gap: 0.75rem; color: var(--text-light); font-size: 1.4rem; font-family: var(--font-title); transition: color var(--transition-smooth); padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+      .department-title i { color: var(--primary); transition: color var(--transition-smooth); }
+      .department-section .button-group { margin-top: 1.2rem; }
+      .department-section .link-button { background: rgba(255, 255, 255, 0.03); border-color: rgba(255, 255, 255, 0.15); transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, color 0.2s ease; }
+      .department-section:hover .link-button { background: rgba(var(--rgb-primary), 0.1); border-color: rgba(var(--rgb-primary), 0.5); color: var(--text-light); }
+      .department-section .link-button:hover { background: rgba(var(--rgb-primary), 0.2); border-color: var(--primary); color: #fff; transform: translateY(-3px) scale(1.03); }
+
+      hr.card-separator { border: 0; height: 1px; background: var(--border); margin: 2.5rem 0; transition: background-color var(--transition-smooth); }
+
+      .page-footer { text-align: center; color: #666676; font-size: .9rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; padding-top: 3rem; margin-top: 4rem; border-top: 1px solid var(--border); animation: fadeInUp 0.8s ease .4s both; transition: border-color var(--transition-smooth); }
+      .footer-controls { display: flex; align-items: center; gap: 1.5rem; }
+      .footer-link { color: var(--text-medium); transition: var(--transition-smooth); display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; font-weight: 600; }
+      .footer-link:hover { color: var(--text-light); transform: scale(1.05); }
+      .footer-icon-btn { background: none; border: none; color: var(--text-medium); font-size: 1.5rem; cursor: pointer; transition: color var(--transition), transform var(--transition); padding: 0.25rem; }
+      .footer-icon-btn:hover { color: var(--primary); transform: scale(1.1) rotate(15deg); }
+      .footer-link svg { font-size: 1.5rem; }
+      
+      .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.5); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 1000; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease, background-color var(--transition-smooth); }
+      .modal-overlay.is-open { opacity: 1; visibility: visible; }
+      .modal-content { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; width: 90%; max-width: 400px; z-index: 1001; transform: scale(0.95); opacity: 0; transition: transform 0.3s ease, opacity 0.3s ease, background-color var(--transition-smooth), border-color var(--transition-smooth); position: relative; }
+      .modal-overlay.is-open .modal-content { transform: scale(1); opacity: 1; }
+      .modal-close-btn { position: absolute; top: 1rem; left: 1rem; background: none; border: none; color: var(--text-medium); font-size: 1.8rem; cursor: pointer; transition: var(--transition); padding: 0.25rem; line-height: 1; }
+      .modal-close-btn:hover { color: var(--text-light); transform: rotate(90deg); }
+      .modal-header { font-family: var(--font-title); font-size: 1.5rem; color: var(--text-light); margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); transition: color var(--transition-smooth), border-color var(--transition-smooth); }
+      .settings-content { display: flex; flex-direction: column; gap: 2rem; }
+      .settings-item { display: flex; justify-content: space-between; align-items: center; }
+      .settings-item h4 { font-family: var(--font-body); font-weight: 600; font-size: 1rem; color: var(--text-light); transition: color var(--transition-smooth); }
+      .mode-toggle { display: flex; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 8px; padding: 4px; gap: 4px; transition: var(--transition-smooth); }
+      .mode-btn { padding: 0.4rem 1rem; border: none; border-radius: 6px; font-family: var(--font-body); font-size: 0.9rem; font-weight: 600; cursor: pointer; background: transparent; color: var(--text-medium); transition: all 0.2s ease; user-select: none; }
+      .mode-btn.active { background: var(--primary); color: #fff; box-shadow: 0 2px 5px rgba(var(--rgb-primary), 0.2); }
+      .theme-picker { display: flex; gap: .75rem; align-items: center; }
+      .theme-dot { width: 28px; height: 28px; border-radius: 50%; cursor: pointer; transition: transform .2s ease, border-color .2s ease; border: 2px solid transparent; }
+      .theme-dot:hover { transform: scale(1.2); }
+      .theme-dot.active { border-color: #fff; transform: scale(1.1); }
+      .color-picker-label { position: relative; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; transition: all .2s ease; border: 2px solid var(--border); user-select: none; overflow: hidden; background-color: transparent; }
+      .color-picker-label:hover { transform: scale(1.2); }
+      .color-picker-label.active { border-color: #fff; transform: scale(1.1); }
+      .color-picker-input { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; border: none; padding: 0; cursor: pointer; }
+
+      .light-mode { --bg: #f9f9f9; --bg-card: rgba(255, 255, 255, 0.75); --border: rgba(0, 0, 0, 0.09); --text-light: #202020; --text-medium: #707070; --text-dark: #888; }
+      .light-mode .aurora-dot { opacity: .15; filter: blur(140px); }
+      .light-mode .link-card { box-shadow: 0 10px 45px rgba(0,0,0,0.08); }
+      .light-mode .card-title, .light-mode .department-title, .light-mode .modal-header, .light-mode .settings-item h4 { color: var(--text-light); }
+      .light-mode .link-button { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.08); color: var(--text-medium); }
+      .light-mode .link-button:hover { color: var(--text-light); }
+      .light-mode .filter-btn.is-active { color: var(--text-light); }
+      .light-mode .department-section { background: radial-gradient(circle at 100% 0, rgba(var(--rgb-primary), 0.08), transparent 50%), #fff; }
+      .light-mode .department-section:hover { background: radial-gradient(circle at 100% 0, rgba(var(--rgb-primary), 0.12), transparent 70%), rgba(var(--rgb-primary), 0.02); }
+      .light-mode .department-section .link-button { background: rgba(0,0,0,0.02); border-color: rgba(0,0,0,0.1); }
+      .light-mode .footer-link:hover { color: var(--text-light); }
+      .light-mode .footer-icon-btn:hover { color: var(--primary); }
+      .light-mode .modal-content { box-shadow: 0 10px 50px rgba(0,0,0,0.1); }
+      .light-mode .modal-close-btn:hover { color: var(--text-light); }
+      .light-mode .mode-toggle { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.08); }
+
+      @media (max-width: 600px) {
+        .links-grid { grid-template-columns: 1fr; }
+        .page-header { margin-bottom: 1.5rem; }
+        .filter-carousel-wrapper { margin-bottom: 2.5rem; }
+        .filter-btn { font-size: 1rem; padding: 0.5rem 1rem; }
+        .settings-item { flex-direction: column; align-items: flex-start; gap: 1rem; }
+        .settings-content { gap: 2rem; }
+      }
+    </style>
+</head>
+<body>
+    <div class="app-wrapper">
+        <div class="aurora-bg">
+            <div class="aurora-dot aurora-dot-1"></div>
+            <div class="aurora-dot aurora-dot-2"></div>
+        </div>
+        
+        <div class="container">
+            <header class="page-header">
+                <h1 class="page-title">دليل قروبات الهندسة</h1>
+                <p class="page-subtitle">وصول سريع ومنظم لجميع روابط القروبات التطوعية والمبادرات الطلابية.</p>
+            </header>
+            
+            <div class="filter-carousel-wrapper" id="filter-carousel-wrapper">
+                <div class="filter-carousel-track" id="filter-carousel-track">
+                    <!-- Buttons are populated by JS -->
+                </div>
+            </div>
+
+            <main class="links-grid" id="links-grid">
+                 <section class="link-card" data-level="college" style="animation-delay: 0s;"><div class="card-header"><i class="fas fa-building-columns icon"></i><h2 class="card-title">روابط الكلية</h2></div><div class="button-group"><a href="https://t.me/ENG_qu" target="_blank" rel="noopener noreferrer" class="link-button" data-type="channel"><i class="fas fa-bullhorn"></i><span>قناة كلية الهندسة</span></a><a href="https://t.me/engineeringQEC" target="_blank" rel="noopener noreferrer" class="link-button" data-type="group"><i class="fas fa-users"></i><span>قروب كلية الهندسة</span></a></div></section>
+                <section class="link-card" data-level="specializations" style="animation-delay: 0.05s;"><div class="card-header"><i class="fas fa-sitemap icon"></i><h2 class="card-title">التخصصات الهندسية</h2></div><div class="button-group"><a href="https://t.me/QU_CEeng" target="_blank" rel="noopener noreferrer" class="link-button" data-type="group"><i class="fas fa-hard-hat"></i><span>الهندسة المدنية</span></a><a href="https://t.me/QU_EEeng" target="_blank" rel="noopener noreferrer" class="link-button" data-type="group"><i class="fas fa-bolt"></i><span>الهندسة الكهربائية</span></a><a href="https://t.me/QU_MEeng" target="_blank" rel="noopener noreferrer" class="link-button" data-type="group"><i class="fas fa-cogs"></i><span>الهندسة الميكانيكية</span></a></div></section>
+                <section class="link-card" data-level="level-1" style="animation-delay: 0.1s;"><div class="card-header"><i class="fas fa-layer-group icon"></i><h2 class="card-title">المستوى الأول</h2></div><div class="button-group"><a href="https://t.me/englevel1Qu" target="_blank" rel="noopener noreferrer" class="link-button" data-type="channel"><i class="fas fa-bullhorn"></i><span>قناة المستوى</span></a><a href="https://t.me/Level1enggg" target="_blank" rel="noopener noreferrer" class="link-button" data-type="group"><i class="fas fa-users"></i><span>قروب المستوى</span></a></div><h3 class="card-section-title"><i class="fas fa-hands-helping"></i>مبادرات المستوى</h3><div class="button-group"><a href="https://t.me/addlist/jwJuM8HdIlY3YzBk" target="_blank" rel="noopener noreferrer" class="link-button" data-type="initiative"><i class="fas fa-star"></i><span>مستديم</span></a><a href="https://t.me/GhimPYP" target="_blank" rel="noopener noreferrer" class="link-button" data-type="initiative"><i class="fas fa-cloud"></i><span>غيم</span></a></div></section>
+                <section class="link-card" data-level="level-2" style="animation-delay: 0.15s;"><div class="card-header"><i class="fas fa-layer-group icon"></i><h2 class="card-title">المستوى الثاني</h2></div><div class="button-group"><a href="https://t.me/level2eng" target="_blank" rel="noopener noreferrer" class="link-button" data-type="channel"><i class="fas fa-bullhorn"></i><span>قناة المستوى</span></a><a href="https://t.me/englevel2" target="_blank" rel="noopener noreferrer" class="link-button" data-type="group"><i class="fas fa-users"></i><span>قروب المستوى</span></a></div><h3 class="card-section-title"><i class="fas fa-hands-helping"></i>مبادرات المستوى</h3><div class="button-group"><a href="https://t.me/addlist/7xEQ3DIk_ZcxZTRk" target="_blank" rel="noopener noreferrer" class="link-button" data-type="initiative"><i class="fas fa-star"></i><span>مستديم</span></a><a href="https://t.me/GhimSci" target="_blank" rel="noopener noreferrer" class="link-button" data-type="initiative"><i class="fas fa-cloud"></i><span>غيم</span></a></div></section>
+                <section class="link-card" data-level="level-3" style="animation-delay: 0.2s;"><div class="card-header"><i class="fas fa-layer-group icon"></i><h2 class="card-title">المستوى الثالث</h2></div><div class="button-group"><a href="https://t.me/EngLevel3" target="_blank" rel="noopener noreferrer" class="link-button" data-type="channel"><i class="fas fa-bullhorn"></i><span>قناة المستوى</span></a><a href="https://t.me/EngineeringQu" target="_blank" rel="noopener noreferrer" class="link-button" data-type="group"><i class="fas fa-users"></i><span>قروب المستوى</span></a></div><h3 class="card-section-title"><i class="fas fa-hands-helping"></i>مبادرات المستوى</h3><div class="button-group"><a href="https://t.me/addlist/ioI7o4WO7QI4MDdk" target="_blank" rel="noopener noreferrer" class="link-button" data-type="initiative"><i class="fas fa-star"></i><span>مستديم</span></a><a href="https://t.me/zalam_level_3" target="_blank" rel="noopener noreferrer" class="link-button" data-type="initiative"><i class="fas fa-moon"></i><span>ظلام</span></a></div></section>
+                <section class="link-card span-full-width" data-level="level-4" style="animation-delay: 0.25s;"><div class="card-header"><i class="fas fa-layer-group icon"></i><h2 class="card-title">المستوى الرابع - تخصصات</h2></div><div class="departments-container"><div class="department-section"><h4 class="department-title"><i class="fas fa-hard-hat"></i>الهندسة المدنية</h4><div class="button-group"><a href="https://t.me/CE_level4" target="_blank" rel="noopener noreferrer" class="link-button" data-type="channel"><i class="fas fa-bullhorn"></i><span>قناتهم</span></a><a href="https://t.me/CEQUeng" target="_blank" rel="noopener noreferrer" class="link-button" data-type="group"><i class="fas fa-users"></i><span>قروبهم</span></a></div></div><div class="department-section"><h4 class="department-title"><i class="fas fa-bolt"></i>الهندسة الكهربائية</h4><div class="button-group"><a href="https://t.me/EE_Level_4" target="_blank" rel="noopener noreferrer" class="link-button" data-type="channel"><i class="fas fa-bullhorn"></i><span>قناتهم</span></a><a href="https://t.me/level4EngEE" target="_blank" rel="noopener noreferrer" class="link-button" data-type="group"><i class="fas fa-users"></i><span>قروبهم</span></a></div></div><div class="department-section"><h4 class="department-title"><i class="fas fa-cogs"></i>الهندسة الميكانيكية</h4><div class="button-group"><a href="https://t.me/ME_level_4" target="_blank" rel="noopener noreferrer" class="link-button" data-type="channel"><i class="fas fa-bullhorn"></i><span>قناتهم</span></a><a href="https://t.me/MEQUeng" target="_blank" rel="noopener noreferrer" class="link-button" data-type="group"><i class="fas fa-users"></i><span>قروبهم</span></a></div></div></div><hr class="card-separator"><h3 class="card-section-title"><i class="fas fa-star-of-life" style="color: var(--primary-dark);"></i>مبادرة مشتركة للتخصصات</h3><div class="button-group" style="max-width: 400px; margin: 0 auto;"><a href="https://t.me/addlist/zo77nPvjipU3YzA0" target="_blank" rel="noopener noreferrer" class="link-button" data-type="initiative"><i class="fas fa-star"></i><span>مستديم</span></a></div></section>
+            </main>
+
+            <footer class="page-footer">
+                <span class="footer-link">© <span id="currentYear"></span> | ظلام</span>
+                <div class="footer-controls">
+                    <button id="settings-btn" class="footer-icon-btn" title="الإعدادات">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                    <a href="https://t.me/mutlaq1" class="footer-link" target="_blank" rel="noopener noreferrer" title="تواصل معي على تليجرام">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 1.62 11.22c-.72-.24-.72-1.16 0-1.41l18.26-6.91c.63-.24 1.22.23 1.01.89L17.43 18.4c-.2 1.39-1.53 1.76-2.53.94l-4.26-3.51-2.86 2.72a.5.5 0 0 1-.88-.38v-4.48z"></path></svg>
+                    </a>
+                </div>
+            </footer>
+        </div>
+    </div>
+    
+    <!-- Settings Modal -->
+    <div class="modal-overlay" id="settings-modal">
+        <div class="modal-content">
+            <button class="modal-close-btn" id="modal-close-btn" title="إغلاق"><i class="fas fa-times"></i></button>
+            <h2 class="modal-header">الإعدادات</h2>
+            <div class="settings-content">
+                <div class="settings-item"><h4>الوضع</h4><div class="mode-toggle"><button class="mode-btn" id="mode-btn-dark">ظلام</button><button class="mode-btn" id="mode-btn-light">نهار</button></div></div>
+                <div class="settings-item"><h4>اختر السمة</h4><div class="theme-picker" id="theme-picker-container"><label for="custom-color-picker" class="color-picker-label" title="اختر لونًا مخصصًا"><input id="custom-color-picker" type="color" class="color-picker-input" /></label></div></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById("currentYear").textContent = new Date().getFullYear();
+            const linkCards = document.querySelectorAll('.link-card');
+            let isAnimating = false;
+
+            // --- Infinite Carousel Slider with Velocity Physics ---
+            const FILTERS = [ { id: 'all', text: 'الكل' }, { id: 'college', text: 'الكلية' }, { id: 'specializations', text: 'التخصصات' }, { id: 'level-1', text: 'المستوى الأول' }, { id: 'level-2', text: 'المستوى الثاني' }, { id: 'level-3', text: 'المستوى الثالث' }, { id: 'level-4', text: 'المستوى الرابع' }, ];
+            const carouselWrapper = document.getElementById('filter-carousel-wrapper');
+            const track = document.getElementById('filter-carousel-track');
+            
+            let allButtons = []; let isDragging = false; let startPos = 0; let currentTranslate = 0; let prevTranslate = 0; let animationID = 0; let currentIndex = 0; let isClick = true;
+            let velocity = 0; let lastPosition = 0;
+            const CLONE_COUNT = FILTERS.length;
+            const FRICTION = 0.94; 
+            const AMPLIFIER = 1.5;
+
+            function createCarouselItems() {
+                const itemsToCreate = [...FILTERS, ...FILTERS, ...FILTERS];
+                track.innerHTML = itemsToCreate.map((filter, index) => `<button class="filter-btn" data-filter="${filter.id}" data-index="${index}">${filter.text}</button>`).join('');
+                allButtons = Array.from(track.querySelectorAll('.filter-btn'));
+            }
+
+            function setPosition(newPosition, withAnimation = true) {
+                currentTranslate = newPosition;
+                track.style.transition = withAnimation ? 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)' : 'none';
+                track.style.transform = `translateX(${currentTranslate}px)`;
+            }
+
+            function centerOnIndex(index, withAnimation = true) {
+                currentIndex = index;
+                const currentButton = allButtons[currentIndex];
+                if (!currentButton) return;
+                const newPosition = -currentButton.offsetLeft + (carouselWrapper.clientWidth / 2) - (currentButton.clientWidth / 2);
+                setPosition(newPosition, withAnimation);
+                setActiveClasses();
+                prevTranslate = newPosition;
+            }
+
+            function setActiveClasses() { allButtons.forEach(button => button.classList.remove('is-active')); const realIndex = currentIndex % CLONE_COUNT; allButtons.forEach((button, i) => { if (i % CLONE_COUNT === realIndex) button.classList.add('is-active'); }); }
+            
+            function filterContent(filterId) {
+                if (isAnimating) return;
+                isAnimating = true;
+
+                const toHide = Array.from(linkCards).filter(card => !card.classList.contains('is-filtered-out'));
+                const toShow = Array.from(linkCards).filter(card => filterId === 'all' || card.dataset.level === filterId);
+
+                toHide.forEach((card, i) => {
+                    card.style.setProperty('--animation-order', `${i * 30}ms`);
+                    card.classList.add('is-hiding');
+                });
+                
+                const hide_delay = toHide.length * 30 + 300;
+                setTimeout(() => {
+                    toHide.forEach(card => {
+                        card.classList.add('is-filtered-out');
+                        card.classList.remove('is-hiding');
+                        card.style.removeProperty('--animation-order');
+                    });
+
+                    toShow.forEach((card, i) => {
+                        card.classList.remove('is-filtered-out');
+                        card.style.setProperty('--animation-order', `${i * 50}ms`);
+                        card.classList.add('is-showing');
+                        card.addEventListener('animationend', () => {
+                            card.classList.remove('is-showing');
+                            card.style.removeProperty('--animation-order');
+                        }, { once: true });
+                    });
+                    
+                    isAnimating = false;
+                }, hide_delay);
+            }
+            
+            function getPositionX(e) { return e.type.includes('mouse') ? e.pageX : e.touches[0].clientX; }
+
+            function startDrag(e) {
+                if (isAnimating) return;
+                isClick = true; isDragging = true;
+                startPos = getPositionX(e);
+                lastPosition = startPos;
+                velocity = 0;
+                cancelAnimationFrame(animationID);
+                carouselWrapper.classList.add('is-dragging');
+            }
+
+            function drag(e) {
+                if (isDragging) {
+                    const currentPosition = getPositionX(e);
+                    const moveX = currentPosition - startPos;
+                    if (Math.abs(moveX) > 5) isClick = false; 
+                    
+                    velocity = currentPosition - lastPosition;
+                    lastPosition = currentPosition;
+                    
+                    currentTranslate = prevTranslate + moveX;
+                    setPosition(currentTranslate, false);
+                }
+            }
+            
+            function endDrag() {
+                if (!isDragging) return;
+                isDragging = false;
+                carouselWrapper.classList.remove('is-dragging');
+                animationID = requestAnimationFrame(momentumScroll);
+            }
+
+            function momentumScroll() {
+                if (Math.abs(velocity) < 0.5) { prevTranslate = currentTranslate; return; }
+                currentTranslate += velocity; velocity *= FRICTION;
+                handleInfiniteLoop(); setPosition(currentTranslate, false);
+                animationID = requestAnimationFrame(momentumScroll);
+            }
+
+            function handleInfiniteLoop() {
+                const trackWidth = track.scrollWidth;
+                const oneSetWidth = trackWidth / 3;
+                if (currentTranslate > -oneSetWidth) { prevTranslate -= oneSetWidth; currentTranslate -= oneSetWidth; }
+                if (currentTranslate < -oneSetWidth * 2) { prevTranslate += oneSetWidth; currentTranslate += oneSetWidth; }
+            }
+
+            createCarouselItems();
+            currentIndex = CLONE_COUNT; 
+            
+            allButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    if (!isClick || isAnimating) return;
+                    cancelAnimationFrame(animationID);
+                    const clickedIndex = parseInt(button.dataset.index, 10);
+                    const realClickedIndex = clickedIndex % CLONE_COUNT;
+                    const realCurrentIndex = currentIndex % CLONE_COUNT;
+                    let diff = realClickedIndex - realCurrentIndex;
+                    currentIndex += diff;
+                    centerOnIndex(currentIndex);
+                    filterContent(button.dataset.filter);
+                });
+            });
+
+            track.addEventListener('mousedown', startDrag); track.addEventListener('touchstart', startDrag, { passive: true });
+            track.addEventListener('mousemove', drag); track.addEventListener('touchmove', drag, { passive: true });
+            window.addEventListener('mouseup', endDrag); window.addEventListener('touchend', endDrag);
+            window.addEventListener('resize', () => centerOnIndex(currentIndex));
+            setTimeout(() => { centerOnIndex(currentIndex, false); }, 100);
+
+            // --- Settings Modal & Theme Logic ---
+            const settingsModal = document.getElementById('settings-modal'); const settingsBtn = document.getElementById('settings-btn'); const closeBtn = document.getElementById('modal-close-btn');
+            const openModal = () => settingsModal.classList.add('is-open'); const closeModal = () => settingsModal.classList.remove('is-open');
+            settingsBtn.addEventListener('click', openModal); closeBtn.addEventListener('click', closeModal);
+            settingsModal.addEventListener('click', (e) => e.target === settingsModal && closeModal()); document.addEventListener('keydown', (e) => e.key === 'Escape' && closeModal());
+            
+            const modeBtnDark = document.getElementById('mode-btn-dark'); const modeBtnLight = document.getElementById('mode-btn-light');
+            const applyColorMode = (mode) => { document.body.className = mode === 'light' ? 'light-mode' : ''; document.querySelector('meta[name="theme-color"]').setAttribute('content', mode === 'light' ? '#f9f9f9' : '#0a0a0a'); localStorage.setItem('engineering-links-colormode', mode); modeBtnDark.classList.toggle('active', mode === 'dark'); modeBtnLight.classList.toggle('active', mode === 'light'); };
+            modeBtnDark.addEventListener('click', () => applyColorMode('dark')); modeBtnLight.addEventListener('click', () => applyColorMode('light'));
+            
+            const PRESET_THEMES = { green: '#00e676', purple: '#a777ff', blue: '#5e9cff' }; const themePickerContainer = document.getElementById('theme-picker-container'); const customColorInput = document.getElementById('custom-color-picker');
+            const hexToRgb = (hex) => { const r = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex); return r ? `${parseInt(r[1], 16)}, ${parseInt(r[2], 16)}, ${parseInt(r[3], 16)}` : null; };
+            const adjustColorBrightness = (hex, p) => { let r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16),t=p/100;r=Math.min(255,Math.max(0,Math.round(r*(1+t))));g=Math.min(255,Math.max(0,Math.round(g*(1+t))));b=Math.min(255,Math.max(0,Math.round(b*(1+t))));return `#${(r).toString(16).padStart(2,'0')}${(g).toString(16).padStart(2,'0')}${(b).toString(16).padStart(2,'0')}`; };
+            const applyTheme = (hexColor) => { const root = document.documentElement; root.style.setProperty('--primary', hexColor); root.style.setProperty('--primary-dark', adjustColorBrightness(hexColor, -20)); const rgb = hexToRgb(hexColor); if (rgb) root.style.setProperty('--rgb-primary', rgb); localStorage.setItem('engineering-links-theme', hexColor); customColorInput.value = hexColor; updateActiveThemeState(hexColor); };
+            const updateActiveThemeState = (hexColor) => { const isCustom = !Object.values(PRESET_THEMES).includes(hexColor); document.querySelectorAll('.theme-dot').forEach(dot => dot.classList.toggle('active', dot.dataset.color === hexColor)); const pickerLabel = document.querySelector('.color-picker-label'); pickerLabel.classList.toggle('active', isCustom); pickerLabel.style.backgroundColor = isCustom ? hexColor : 'transparent'; };
+            Object.entries(PRESET_THEMES).forEach(([name, color]) => { const dot = document.createElement('div'); dot.className = 'theme-dot'; dot.style.backgroundColor = color; dot.dataset.color = color; dot.title = name; dot.addEventListener('click', () => applyTheme(color)); themePickerContainer.prepend(dot); });
+            customColorInput.addEventListener('input', (e) => applyTheme(e.target.value));
+            
+            const savedMode = localStorage.getItem('engineering-links-colormode') || 'dark'; const savedTheme = localStorage.getItem('engineering-links-theme') || PRESET_THEMES.blue;
+            applyColorMode(savedMode); applyTheme(savedTheme);
+        });
+    </script>
+</body>
+</html>
