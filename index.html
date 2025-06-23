@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>دليل الهندسة المحسّن</title>
+    <meta name="description" content="وصول سريع ومنظم لجميع قروبات ومبادرات الهندسة.">
+    <meta name="theme-color" content="#0a0a0a">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <style>
+      :root {
+        --primary-hue: 220; /* Default: Blue */
+        --primary-sat: 90%;
+        --primary-light: 65%;
+        
+        /* [IMPROVED] Harmonious Color System */
+        --secondary-hue: calc(var(--primary-hue) + 40);
+        --secondary-sat: calc(var(--primary-sat) - 10%);
+        
+        --primary: hsl(var(--primary-hue), var(--primary-sat), var(--primary-light));
+        --primary-dark: hsl(var(--primary-hue), var(--primary-sat), calc(var(--primary-light) - 10%));
+        --secondary: hsl(var(--secondary-hue), var(--secondary-sat), var(--primary-light));
+        
+        --bg: #0a0a0a;
+        --bg-card: rgba(20, 20, 22, 0.75);
+        --border: rgba(255, 255, 255, 0.1);
+        --text-light: #f0f0f0;
+        --text-medium: #a9a9b9;
+        --font-body: "Cairo", sans-serif;
+        --font-title: "IBM Plex Sans Arabic", sans-serif;
+        
+        --radius: 16px;
+        --transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        --transition-smooth:0.5s cubic-bezier(0.2,0.8,0.2,1);
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+      html { scroll-behavior: smooth; }
+      
+      ::-webkit-scrollbar { width: 8px; }
+      ::-webkit-scrollbar-track { background: var(--bg); }
+      ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 4px; border: 2px solid transparent; background-clip: content-box; }
+      ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
+
+      @keyframes gradient-animation { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+      @keyframes scaleInUp { from { opacity: 0; transform: translateY(30px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+      @keyframes scaleOutDown { from { opacity: 1; transform: translateY(0) scale(1); } to { opacity: 0; transform: translateY(20px) scale(0.97); } }
+      
+      @keyframes move-aurora-1 { 0% { transform: translate(0, 0) rotate(0deg) scale(1); } 50% { transform: translate(25vw, 15vh) rotate(180deg) scale(1.3); } 100% { transform: translate(0, 0) rotate(360deg) scale(1); } }
+      @keyframes move-aurora-2 { 0% { transform: translate(0, 0) rotate(0deg) scale(1.2); } 50% { transform: translate(-30vw, -20vh) rotate(-150deg) scale(1); } 100% { transform: translate(0, 0) rotate(-360deg) scale(1.2); } }
+
+      body { font-family: var(--font-body); background-color: var(--bg); color: var(--text-medium); direction: rtl; overflow-x: hidden; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; transition: background-color var(--transition-smooth), color var(--transition-smooth); }
+      .app-wrapper { min-height: 100vh; position: relative; padding: 3rem 1.5rem; }
+      
+      .aurora-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: -1; }
+      .aurora-dot { position: absolute; border-radius: 50%; filter: blur(120px); transition: background-color .5s ease; opacity: 0.15; }
+      .aurora-dot-1 { width: 60vmax; height: 60vmax; background-color: var(--primary); top: -20%; left: -20%; animation: move-aurora-1 30s infinite alternate ease-in-out; }
+      .aurora-dot-2 { width: 55vmax; height: 55vmax; background-color: var(--secondary); bottom: -25%; right: -15%; animation: move-aurora-2 35s infinite alternate-reverse ease-in-out; animation-delay: -5s; }
+
+      .container { width: 100%; max-width: 1200px; z-index: 1; margin: 0 auto; position: relative; }
+      
+      a, button { outline: none; }
+      *:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; border-radius: 6px; }
+
+      .page-header { text-align: center; margin-bottom: 2rem; animation: scaleInUp 0.8s ease .1s both; }
+      .page-title { font-family: var(--font-title); font-weight: 700; font-size: clamp(2.8rem, 6vw, 4rem); margin-bottom: 0.75rem; background: linear-gradient(90deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200% 200%; animation: gradient-animation 6s ease-in-out infinite; }
+      .page-subtitle { color: var(--text-medium); font-size: clamp(1rem, 2vw, 1.25rem); animation: scaleInUp 0.8s ease .3s both; max-width: 600px; margin: 0 auto; line-height: 1.7; }
+      
+      .filter-carousel-wrapper { width: 100%; height: 80px; margin: 0 auto; position: relative; overflow: hidden; -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent); mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent); cursor: grab; }
+      .filter-carousel-wrapper.is-dragging { cursor: grabbing; }
+      #primary-carousel-wrapper { margin-bottom: 0.75rem; animation: scaleInUp 0.8s ease .4s both; }
+      #level-carousel-wrapper { max-height: 0; opacity: 0; margin-bottom: 0; visibility: hidden; transition: max-height 0.5s ease, opacity 0.5s ease, margin-bottom 0.5s ease, visibility 0s 0.5s; }
+      #level-carousel-wrapper.is-visible { max-height: 80px; opacity: 1; margin-bottom: 2.5rem; visibility: visible; transition: max-height 0.5s ease, opacity 0.5s ease, margin-bottom 0.5s ease, visibility 0s 0s; }
+      
+      .filter-carousel-track { display: flex; align-items: center; position: absolute; top: 0; left: 0; height: 100%; will-change: transform; user-select: none; }
+      .filter-carousel-track.is-dragging { pointer-events: none; }
+      .filter-btn { background: transparent; border: none; font-family: var(--font-body); font-weight: 600; font-size: 1.2rem; color: var(--text-medium); cursor: pointer; padding: 0.75rem 1.5rem; white-space: nowrap; opacity: 0.6; transform: scale(0.9); transition: transform 0.4s var(--transition), opacity 0.4s ease, color 0.4s ease; position: relative; }
+      .filter-btn.is-active { color: var(--text-light); opacity: 1; transform: scale(1); }
+      .filter-btn.is-active::after { content: ''; position: absolute; bottom: 5px; right: 50%; transform: translateX(50%); width: 40%; height: 3px; background-image: linear-gradient(to left, var(--primary), var(--secondary)); border-radius: 2px; transition: all 0.4s ease; box-shadow: 0 0 15px var(--primary); }
+
+      .links-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.75rem; position: relative; min-height: 200px; }
+      .link-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); transition: transform 0.4s var(--transition), box-shadow 0.4s ease, opacity 0.4s ease, background-color var(--transition-smooth), border-color var(--transition-smooth); overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.05); }
+      .is-filtered-out { display: none !important; }
+      .link-card.is-hiding { animation: scaleOutDown 0.3s ease-out forwards; animation-delay: var(--animation-order, 0s); }
+      .link-card.is-showing { animation: scaleInUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: var(--animation-order, 0s); }
+      
+      .link-card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 15px 35px rgba(0,0,0,0.3), 0 0 25px hsl(var(--primary-hue) var(--primary-sat) var(--primary-light) / 0.2), inset 0 1px 0 rgba(255,255,255,0.05); }
+      .span-full-width { grid-column: 1 / -1; }
+
+      .card-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border); }
+      .card-header .icon { font-size: 1.8rem; color: var(--primary); transition: color var(--transition); }
+      .card-title { font-family: var(--font-title); font-weight: 700; font-size: clamp(1.5rem, 4vw, 1.8rem); white-space: nowrap; color: var(--text-light); }
+      .card-section-title { font-family: var(--font-body); font-weight: 600; font-size: 1.1rem; color: var(--text-medium); margin: 1.5rem 0 1rem 0; display: flex; align-items: center; gap: 0.75rem; }
+      .card-section-title i { color: var(--primary-dark); }
+      .button-group { display: flex; flex-direction: column; gap: 1rem; }
+      
+      .link-button { display: flex; align-items: center; justify-content: center; gap: 1rem; padding: 0.9rem 1rem; border-radius: 10px; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--border); color: var(--text-medium); text-decoration: none; font-weight: 600; font-size: 1rem; transition: var(--transition); }
+      .link-button i { font-size: 1.2rem; transition: transform 0.2s ease; }
+      .link-button:hover { transform: translateY(-3px); border-color: var(--primary); background: hsl(var(--primary-hue) var(--primary-sat) var(--primary-light) / 0.1); color: var(--text-light); }
+      .link-button:hover i { transform: scale(1.1); }
+      
+      .departments-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+      .department-section { border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; position: relative; overflow: hidden; background: radial-gradient(circle at 100% 0, hsl(var(--primary-hue) var(--primary-sat) var(--primary-light) / 0.15), transparent 50%), rgba(0, 0, 0, 0.2); transition: background var(--transition), border-color var(--transition); }
+      .department-section:hover { border-color: hsl(var(--primary-hue) var(--primary-sat) var(--primary-light) / 0.3); background: radial-gradient(circle at 100% 0, hsl(var(--primary-hue) var(--primary-sat) var(--primary-light) / 0.25), transparent 60%), hsl(var(--primary-hue) var(--primary-sat) var(--primary-light) / 0.05); }
+      .department-title { display: flex; align-items: center; gap: 0.75rem; color: var(--text-light); font-size: 1.4rem; font-family: var(--font-title); padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+      .department-title i { color: var(--primary); }
+      .department-section .button-group { margin-top: 1.2rem; }
+      
+      hr.card-separator { border: 0; height: 1px; background: var(--border); margin: 2.5rem 0; }
+
+      .empty-state { grid-column: 1 / -1; display: none; justify-content: center; align-items: center; text-align: center; padding: 4rem 1.5rem; flex-direction: column; gap: 1.5rem; animation: scaleInUp 0.5s ease both; color: var(--text-light); }
+      .empty-state.is-visible { display: flex; }
+      .empty-state .icon { font-size: 3rem; color: var(--primary); opacity: 0.5; }
+      .empty-state span { font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem; }
+
+      .page-footer { text-align: center; color: var(--text-medium); font-size: .9rem; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; padding-top: 3rem; margin-top: 4rem; border-top: 1px solid var(--border); animation: scaleInUp 0.8s ease .6s both; }
+      .footer-controls { display: flex; align-items: center; gap: 1.5rem; }
+      .footer-link { color: var(--text-medium); transition: var(--transition); display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; font-weight: 600; }
+      .footer-link:hover { color: var(--text-light); transform: scale(1.05); }
+      .footer-icon-btn { background: none; border: none; color: var(--text-medium); font-size: 1.5rem; cursor: pointer; transition: color var(--transition), transform var(--transition); padding: 0.25rem; }
+      .footer-icon-btn:hover { color: var(--primary); transform: scale(1.1) rotate(15deg); }
+      .footer-link svg { font-size: 1.5rem; transition: transform 0.3s ease; }
+      .footer-link:hover svg { transform: scale(1.1); }
+      
+      /* --- Settings Modal Styles --- */
+      .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.5); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 1000; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+      .modal-overlay.is-open { opacity: 1; visibility: visible; }
+      .modal-content { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; width: 90%; max-width: 400px; z-index: 1001; transform: scale(0.95); opacity: 0; transition: transform 0.3s ease, opacity 0.3s ease; position: relative; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4); }
+      .modal-overlay.is-open .modal-content { transform: scale(1); opacity: 1; }
+      .modal-close-btn { position: absolute; top: 1rem; left: 1rem; background: none; border: none; color: var(--text-medium); font-size: 1.8rem; cursor: pointer; transition: var(--transition); padding: 0.25rem; line-height: 1; }
+      .modal-close-btn:hover { color: var(--text-light); transform: rotate(90deg); }
+      .modal-header { font-family: var(--font-title); font-size: 1.5rem; color: var(--text-light); margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+      .settings-content { display: flex; flex-direction: column; gap: 2rem; }
+      .settings-item { display: flex; justify-content: space-between; align-items: center; }
+      .settings-item h4 { font-family: var(--font-body); font-weight: 600; font-size: 1rem; color: var(--text-light); }
+      .mode-toggle { display: flex; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 8px; padding: 4px; gap: 4px; }
+      .mode-btn { padding: 0.4rem 1rem; border: none; border-radius: 6px; font-family: var(--font-body); font-size: 0.9rem; font-weight: 600; cursor: pointer; background: transparent; color: var(--text-medium); transition: all 0.2s ease; user-select: none; }
+      .mode-btn.active { background-image: linear-gradient(45deg, var(--primary), var(--secondary)); color: #fff; box-shadow: 0 2px 10px hsl(var(--primary-hue) 100% 50% / 0.2); }
+      .theme-picker { display: flex; gap: .75rem; align-items: center; }
+      .theme-dot { width: 28px; height: 28px; border-radius: 50%; cursor: pointer; transition: transform .2s ease, box-shadow .2s ease; border: 2px solid transparent; }
+      .theme-dot:hover { transform: scale(1.2); }
+      .theme-dot.active { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--primary); transform: scale(1.1); }
+      .color-picker-label { position: relative; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; transition: all .2s ease; border: 2px solid var(--border); user-select: none; overflow: hidden; background-color: transparent; }
+      .color-picker-label:hover { transform: scale(1.2); }
+      .color-picker-label.active { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--primary); transform: scale(1.1); }
+      .color-picker-input { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; border: none; padding: 0; cursor: pointer; }
+
+      /* Light Mode */
+      .light-mode { --bg: #f5f9ff; --bg-card: rgba(255, 255, 255, 0.6); --border: hsl(var(--primary-hue) 50% 50% / 0.15); --text-light: #0d2a44; --text-medium: #4a6a88; --primary-sat: 80%; }
+      .light-mode .aurora-dot { opacity: 0.4; filter: blur(140px); }
+      .light-mode .link-card { box-shadow: 0 10px 30px -10px rgba(100, 140, 180, 0.2), 0 1px 2px rgba(0,0,0,0.02); backdrop-filter: blur(24px) saturate(150%); -webkit-backdrop-filter: blur(24px) saturate(150%); }
+      .light-mode .link-button { background: hsl(var(--primary-hue) 60% 50% / 0.08); border-color: hsl(var(--primary-hue) 60% 50% / 0.2); color: var(--text-medium); }
+      .light-mode .link-button:hover { color: var(--primary-dark); background: hsl(var(--primary-hue) 60% 50% / 0.15); border-color: hsl(var(--primary-hue) 60% 50% / 0.3); }
+      .light-mode .mode-toggle { background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.08); }
+      .light-mode .department-section { background: radial-gradient(circle at 100% 0, hsl(var(--primary-hue) var(--primary-sat) var(--primary-light) / 0.08), transparent 50%), #fff; }
+      .light-mode .department-section:hover { background: radial-gradient(circle at 100% 0, hsl(var(--primary-hue) var(--primary-sat) var(--primary-light) / 0.12), transparent 70%), hsl(var(--primary-hue) var(--primary-sat) var(--primary-light) / 0.02); }
+      
+      @media (max-width: 600px) {
+        .links-grid { grid-template-columns: 1fr; }
+        .settings-item { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      }
+    </style>
+</head>
+<body>
+    <div class="app-wrapper">
+        <div class="aurora-bg">
+            <div class="aurora-dot aurora-dot-1"></div>
+            <div class="aurora-dot aurora-dot-2"></div>
+        </div>
+        
+        <div class="container">
+            <header class="page-header">
+                <h1 class="page-title">دليل الهندسة</h1>
+                <p class="page-subtitle">وصول سريع ومنظم لجميع روابط القروبات التطوعية والمبادرات الطلابية.</p>
+            </header>
+            
+            <div class="filter-carousel-wrapper" id="primary-carousel-wrapper">
+                <div class="filter-carousel-track" id="primary-carousel-track"></div>
+            </div>
+
+            <div class="filter-carousel-wrapper" id="level-carousel-wrapper">
+                <div class="filter-carousel-track" id="level-carousel-track"></div>
+            </div>
+
+            <main class="links-grid" id="links-grid">
+                <div class="empty-state" id="empty-state">
+                    <i class="fas fa-compass icon"></i>
+                    <span>لا توجد نتائج تطابق هذا التصنيف.</span>
+                    <button class="link-button" id="reset-filter-btn">عرض الكل</button>
+                </div>
+            </main>
+
+            <footer class="page-footer">
+                <span class="footer-link">© <span id="currentYear"></span> | ظلام</span>
+                <div class="footer-controls">
+                    <button id="settings-btn" class="footer-icon-btn" title="الإعدادات" aria-label="الإعدادات">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                    <a href="https://t.me/mutlaq1" class="footer-link" target="_blank" rel="noopener noreferrer" title="تواصل معي على تليجرام" aria-label="تواصل معي على تليجرام">
+                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 1.62 11.22c-.72-.24-.72-1.16 0-1.41l18.26-6.91c.63-.24 1.22.23 1.01.89L17.43 18.4c-.2 1.39-1.53 1.76-2.53.94l-4.26-3.51-2.86 2.72a.5.5 0 0 1-.88-.38v-4.48z"></path></svg>
+                    </a>
+                </div>
+            </footer>
+        </div>
+    </div>
+    
+    <div class="modal-overlay" id="settings-modal">
+        <div class="modal-content">
+            <button class="modal-close-btn" id="modal-close-btn" title="إغلاق" aria-label="إغلاق"><i class="fas fa-times"></i></button>
+            <h2 class="modal-header">الإعدادات</h2>
+            <div class="settings-content">
+                <div class="settings-item">
+                    <h4>الوضع</h4>
+                    <div class="mode-toggle">
+                        <button class="mode-btn" data-mode="dark" role="button" aria-pressed="true">ظلام</button>
+                        <button class="mode-btn" data-mode="light" role="button" aria-pressed="false">نهار</button>
+                    </div>
+                </div>
+                <div class="settings-item">
+                    <h4>اختر السمة</h4>
+                    <div class="theme-picker" id="theme-picker-container">
+                        <label for="custom-color-picker" class="color-picker-label" title="اختر لونًا مخصصًا">
+                            <input id="custom-color-picker" type="color" class="color-picker-input" />
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- 1. DATA & CONFIGURATION ---
+            const SITE_DATA = [ { category: 'college', level: 'college', title: 'روابط الكلية', icon: 'fa-building-columns', links: [ { href: "https://t.me/ENG_qu", type: "channel", icon: "fa-bullhorn", text: "قناة كلية الهندسة" }, { href: "https://t.me/engineeringQEC", type: "group", icon: "fa-users", text: "قروب كلية الهندسة" }, { href: "https://t.me/Engineeringgirls", type: "group", icon: "fa-user-friends", text: "قروب الطالبات" } ] }, { category: 'specializations', level: 'specializations', title: 'التخصصات الهندسية', icon: 'fa-sitemap', links: [ { href: "https://t.me/QU_CEeng", type: "group", icon: "fa-hard-hat", text: "الهندسة المدنية" }, { href: "https://t.me/QU_EEeng", type: "group", icon: "fa-bolt", text: "الهندسة الكهربائية" }, { href: "https://t.me/QU_MEeng", type: "group", icon: "fa-cogs", text: "الهندسة الميكانيكية" } ] }, { category: 'levels', level: 'level-1', title: 'المستوى الأول', icon: 'fa-layer-group', sections: [ { links: [ { href: "https://t.me/englevel1Qu", type: "channel", icon: "fa-bullhorn", text: "قناة المستوى" }, { href: "https://t.me/Level1enggg", type: "group", icon: "fa-users", text: "قروب المستوى" } ] }, { title: "مبادرات المستوى", icon: "fa-hands-helping", links: [ { href: "https://t.me/addlist/jwJuM8HdIlY3YzBk", type: "initiative", icon: "fa-star", text: "مستديم" }, { href: "https://t.me/GhimPYP", type: "initiative", icon: "fa-cloud", text: "غيم" } ] } ] }, { category: 'levels', level: 'level-2', title: 'المستوى الثاني', icon: 'fa-layer-group', sections: [ { links: [ { href: "https://t.me/level2eng", type: "channel", icon: "fa-bullhorn", text: "قناة المستوى" }, { href: "https://t.me/englevel2", type: "group", icon: "fa-users", text: "قروب المستوى" } ] }, { title: "مبادرات المستوى", icon: "fa-hands-helping", links: [ { href: "https://t.me/addlist/7xEQ3DIk_ZcxZTRk", type: "initiative", icon: "fa-star", text: "مستديم" }, { href: "https://t.me/GhimSci", type: "initiative", icon: "fa-cloud", text: "غيم" } ] } ] }, { category: 'levels', level: 'level-3', title: 'المستوى الثالث', icon: 'fa-layer-group', sections: [ { links: [ { href: "https://t.me/EngLevel3", type: "channel", icon: "fa-bullhorn", text: "قناة المستوى" }, { href: "https://t.me/EngineeringQu", type: "group", icon: "fa-users", text: "قروب المستوى" } ] }, { title: "مبادرات المستوى", icon: "fa-hands-helping", links: [ { href: "https://t.me/addlist/ioI7o4WO7QI4MDdk", type: "initiative", icon: "fa-star", text: "مستديم" }, { href: "https://t.me/zalam_level_3", type: "initiative", icon: "fa-moon", text: "ظلام" } ] } ] }, { category: 'levels', level: 'level-4', title: 'المستوى الرابع - تخصصات', icon: 'fa-layer-group', type: 'multi-department', departments: [ { title: "الهندسة المدنية", icon: "fa-hard-hat", links: [ { href: "https://t.me/CE_level4", type: "channel", icon: "fa-bullhorn", text: "قناتهم" }, { href: "https://t.me/CEQUeng", type: "group", icon: "fa-users", text: "قروبهم" } ] }, { title: "الهندسة الكهربائية", icon: "fa-bolt", links: [ { href: "https://t.me/EE_Level_4", type: "channel", icon: "fa-bullhorn", text: "قناتهم" }, { href: "https://t.me/level4EngEE", type: "group", icon: "fa-users", text: "قروبهم" } ] }, { title: "الهندسة الميكانيكية", icon: "fa-cogs", links: [ { href: "https://t.me/ME_level_4", type: "channel", icon: "fa-bullhorn", text: "قناتهم" }, { href: "https://t.me/MEQUeng", type: "group", icon: "fa-users", text: "قروبهم" } ] } ], initiatives: { title: 'مبادرة مشتركة للتخصصات', icon: 'fa-star-of-life', links: [ { href: 'https://t.me/addlist/zo77nPvjipU3YzA0', type: 'initiative', icon: 'fa-star', text: 'مستديم' } ] } } ];
+            const PRIMARY_FILTERS = [ { id: 'all', text: 'الكل' }, { id: 'college', text: 'الكلية' }, { id: 'specializations', text: 'التخصصات' }, { id: 'levels', text: 'المستويات' } ];
+            const LEVEL_FILTERS = [ { id: 'level-1', text: 'الأول' }, { id: 'level-2', text: 'الثاني' }, { id: 'level-3', text: 'الثالث' }, { id: 'level-4', text: 'الرابع' } ];
+            
+            let activePrimaryFilterId = 'all', activeLevelFilterId = LEVEL_FILTERS[0].id, isAnimating = false;
+            const grid = document.getElementById('links-grid'), emptyState = document.getElementById('empty-state');
+
+            // --- 2. DYNAMIC HTML GENERATION ---
+            const createCardHTML = (cardData) => {
+                const header = `<div class="card-header"><i class="fas ${cardData.icon} icon"></i><h2 class="card-title">${cardData.title}</h2></div>`;
+                const createButtonGroup = links => `<div class="button-group">${links.map(link => `<a href="${link.href}" target="_blank" rel="noopener noreferrer" class="link-button"><i class="fas ${link.icon}"></i><span>${link.text}</span></a>`).join('')}</div>`;
+                let body = '';
+                if (cardData.links) body = createButtonGroup(cardData.links);
+                else if (cardData.sections) body = cardData.sections.map(section => (section.title ? `<h3 class="card-section-title"><i class="fas ${section.icon}"></i>${section.title}</h3>` : '') + createButtonGroup(section.links)).join('');
+                else if (cardData.type === 'multi-department') {
+                    const depts = cardData.departments.map(dept => `<div class="department-section"><h4 class="department-title"><i class="fas ${dept.icon}"></i>${dept.title}</h4>${createButtonGroup(dept.links)}</div>`).join('');
+                    const inits = `<hr class="card-separator"><h3 class="card-section-title" style="justify-content: center;"><i class="fas ${cardData.initiatives.icon}" style="color:var(--primary-dark)"></i>${cardData.initiatives.title}</h3><div style="max-width: 400px; margin: 0 auto;">${createButtonGroup(cardData.initiatives.links)}</div>`;
+                    body = `<div class="departments-container">${depts}</div>${inits}`;
+                }
+                return `<section class="link-card is-filtered-out ${cardData.type === 'multi-department' ? 'span-full-width' : ''}" data-category="${cardData.category}" data-level="${cardData.level}">${header}${body}</section>`;
+            };
+
+            // --- 3. FILTERING LOGIC ---
+            const filterContent = () => {
+                if (isAnimating) return;
+                isAnimating = true;
+                const cards = Array.from(grid.querySelectorAll('.link-card'));
+                const toHide = [], toShow = [];
+                let visibleCardCount = 0;
+
+                cards.forEach(card => {
+                    const shouldShow = (() => {
+                        if (activePrimaryFilterId === 'all') return true;
+                        if (activePrimaryFilterId === 'levels') {
+                            return card.dataset.category === 'levels' && card.dataset.level === activeLevelFilterId;
+                        }
+                        return card.dataset.category === activePrimaryFilterId;
+                    })();
+
+                    if (shouldShow) visibleCardCount++;
+                    const isVisible = !card.classList.contains('is-filtered-out');
+                    if (shouldShow && !isVisible) toShow.push(card);
+                    else if (!shouldShow && isVisible) toHide.push(card);
+                });
+                
+                emptyState.classList.toggle('is-visible', visibleCardCount === 0);
+                let hideAnimationTime = toHide.length * 30 + 150;
+                
+                toHide.forEach((card, i) => {
+                    card.style.setProperty('--animation-order', `${i * 30}ms`);
+                    card.classList.add('is-hiding');
+                    card.addEventListener('animationend', () => { card.classList.add('is-filtered-out'); card.classList.remove('is-hiding'); }, { once: true });
+                });
+
+                setTimeout(() => {
+                    toShow.forEach((card, i) => { card.style.setProperty('--animation-order', `${i * 50}ms`); card.classList.remove('is-filtered-out'); card.classList.add('is-showing'); card.addEventListener('animationend', () => card.classList.remove('is-showing'), { once: true }); });
+                    setTimeout(() => { isAnimating = false; }, toShow.length * 50 + 200);
+                }, toHide.length > 0 ? hideAnimationTime : 0);
+            };
+
+            // --- 4. CAROUSEL & INTERACTION ---
+            const createCarouselInstance = (wrapperId, trackId, filters, onFilterChange) => {
+                const wrapper = document.getElementById(wrapperId), track = document.getElementById(trackId);
+                if (!wrapper || !track) return null;
+                const CLONE_COUNT = filters.length;
+                track.innerHTML = [...filters, ...filters, ...filters].map((f, i) => `<button class="filter-btn" data-filter="${f.id}" data-index="${i}" role="button" aria-pressed="false">${f.text}</button>`).join('');
+                const allButtons = Array.from(track.querySelectorAll('.filter-btn'));
+                let isDragging = false, startPos = 0, currentTranslate = 0, prevTranslate = 0, animationID, currentIndex = CLONE_COUNT, isClick = true, velocity = 0, lastPosition = 0;
+                const FRICTION = 0.94, AMPLIFIER = 1.5;
+                
+                const setPosition = (p, withAnim) => { track.style.transition = withAnim ? 'transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)' : 'none'; track.style.transform = `translateX(${p}px)`; currentTranslate = p; };
+                const recenterTrack = (withAnim) => { const btn = allButtons[currentIndex]; if (!btn) return; const pos = -btn.offsetLeft + (wrapper.clientWidth / 2) - (btn.clientWidth / 2); setPosition(pos, withAnim); prevTranslate = pos; };
+                const activateFilter = (targetIndex, withAnim, triggerChange) => {
+                    currentIndex = targetIndex;
+                    recenterTrack(withAnim);
+                    const realIndex = targetIndex % CLONE_COUNT;
+                    allButtons.forEach((b, i) => { const isActive = i % CLONE_COUNT === realIndex; b.classList.toggle('is-active', isActive); b.setAttribute('aria-pressed', isActive.toString()); });
+                    if (triggerChange) onFilterChange(filters[realIndex].id);
+                };
+                
+                const getPosX = e => e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+                const startDrag = e => { isClick = true; isDragging = true; startPos = getPosX(e); lastPosition = startPos; velocity = 0; cancelAnimationFrame(animationID); track.style.transition = 'none'; wrapper.classList.add('is-dragging'); };
+                const drag = e => { if (isDragging) { const currentPosition = getPosX(e); const moveX = currentPosition - startPos; if (Math.abs(moveX) > 5) isClick = false; velocity = currentPosition - lastPosition; lastPosition = currentPosition; setPosition(prevTranslate + moveX, false); } };
+                const endDrag = () => { if (!isDragging) return; isDragging = false; wrapper.classList.remove('is-dragging'); if (!isClick) { velocity *= AMPLIFIER; animationID = requestAnimationFrame(momentumScroll); } else { prevTranslate = currentTranslate; } };
+                const momentumScroll = () => { const trackWidth = track.scrollWidth/3; if(currentTranslate > -trackWidth){prevTranslate-=trackWidth;currentTranslate-=trackWidth;} if(currentTranslate < -trackWidth*2){prevTranslate+=trackWidth;currentTranslate+=trackWidth;} if (Math.abs(velocity) < 0.5) { cancelAnimationFrame(animationID); prevTranslate = currentTranslate; return; } currentTranslate += velocity; velocity *= FRICTION; setPosition(currentTranslate, false); animationID = requestAnimationFrame(momentumScroll); };
+                
+                allButtons.forEach(b => b.addEventListener('click', e => { if (isClick) { cancelAnimationFrame(animationID); activateFilter(parseInt(e.currentTarget.dataset.index), true, true); } }));
+                track.addEventListener('mousedown', startDrag); track.addEventListener('touchstart', startDrag, { passive: true });
+                track.addEventListener('mousemove', drag); track.addEventListener('touchmove', drag, { passive: true });
+                window.addEventListener('mouseup', endDrag); window.addEventListener('touchend', endDrag);
+                window.addEventListener('resize', () => recenterTrack(false));
+                
+                return { activateByIndex: (index, withAnim) => activateFilter(index, withAnim, false), getIndexById: id => filters.findIndex(f => f.id === id) };
+            };
+
+            const levelCarouselWrapper = document.getElementById('level-carousel-wrapper');
+            const handleLevelFilterChange = newId => { activeLevelFilterId = newId; if (activePrimaryFilterId === 'levels') filterContent(); };
+            const handlePrimaryFilterChange = newId => { if (activePrimaryFilterId === newId && newId !== 'all') return; activePrimaryFilterId = newId; const isLevels = newId === 'levels'; levelCarouselWrapper.classList.toggle('is-visible', isLevels); if(isLevels) { activeLevelFilterId = LEVEL_FILTERS[0].id; levelCarousel.activateByIndex(LEVEL_FILTERS.length, true); } filterContent(); };
+            
+            const primaryCarousel = createCarouselInstance('primary-carousel-wrapper', 'primary-carousel-track', PRIMARY_FILTERS, handlePrimaryFilterChange);
+            const levelCarousel = createCarouselInstance('level-carousel-wrapper', 'level-carousel-track', LEVEL_FILTERS, handleLevelFilterChange);
+            
+            // --- 5. SETTINGS MODAL & THEME ---
+            const initSettingsModal = () => {
+                const modal = document.getElementById('settings-modal'), openBtn = document.getElementById('settings-btn'), closeBtn = modal.querySelector('.modal-close-btn');
+                openBtn.onclick = () => modal.classList.add('is-open');
+                const closeModal = () => modal.classList.remove('is-open');
+                closeBtn.onclick = closeModal;
+                modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+                document.onkeydown = e => { if (e.key === 'Escape') closeModal(); };
+
+                const modeButtons = modal.querySelectorAll('.mode-btn');
+                const applyColorMode = mode => { document.body.classList.toggle('light-mode', mode === 'light'); document.querySelector('meta[name="theme-color"]').setAttribute('content', mode === 'light' ? '#f5f9ff' : '#0a0a0a'); localStorage.setItem('engineering-links-colormode', mode); modeButtons.forEach(btn => { const isActive = btn.dataset.mode === mode; btn.classList.toggle('active', isActive); btn.setAttribute('aria-pressed', isActive.toString()); }); };
+                modeButtons.forEach(btn => btn.onclick = () => applyColorMode(btn.dataset.mode));
+
+                const PRESET_THEMES = { blue: '#5e9cff', purple: '#a777ff', green: '#00e676' };
+                const themePickerContainer = document.getElementById('theme-picker-container'), customColorInput = document.getElementById('custom-color-picker'), customColorLabel = customColorInput.parentElement;
+                const hexToHsl = H => { let r=0,g=0,b=0;if(H.length==4){r="0x"+H[1]+H[1];g="0x"+H[2]+H[2];b="0x"+H[3]+H[3];}else if(H.length==7){r="0x"+H[1]+H[2];g="0x"+H[3]+H[4];b="0x"+H[5]+H[6];}r/=255;g/=255;b/=255;let cmin=Math.min(r,g,b),cmax=Math.max(r,g,b),delta=cmax-cmin,h=0;if(delta==0)h=0;else if(cmax==r)h=((g-b)/delta)%6;else if(cmax==g)h=(b-r)/delta+2;else h=(r-g)/delta+4;h=Math.round(h*60);if(h<0)h+=360;return h;};
+                
+                const updateActiveThemeState = hexColor => { const isCustom = !Object.values(PRESET_THEMES).includes(hexColor); document.querySelectorAll('.theme-dot').forEach(dot => dot.classList.toggle('active', dot.dataset.color === hexColor)); customColorLabel.classList.toggle('active', isCustom); customColorLabel.style.backgroundColor = isCustom ? hexColor : 'transparent'; };
+                const applyTheme = hex => { const root = document.documentElement; root.style.setProperty('--primary-hue', hexToHsl(hex)); localStorage.setItem('engineering-links-theme', hex); customColorInput.value = hex; updateActiveThemeState(hex); };
+                
+                Object.entries(PRESET_THEMES).forEach(([name, color]) => { const dot = document.createElement('div'); dot.className = 'theme-dot'; dot.style.backgroundColor = color; dot.dataset.color = color; dot.title = name; dot.onclick = () => applyTheme(color); themePickerContainer.insertBefore(dot, customColorLabel); });
+                customColorInput.addEventListener('input', e => applyTheme(e.target.value));
+
+                const savedMode = localStorage.getItem('engineering-links-colormode') || 'dark';
+                const savedTheme = localStorage.getItem('engineering-links-theme') || PRESET_THEMES.blue;
+                applyColorMode(savedMode);
+                applyTheme(savedTheme);
+            };
+
+            // --- 6. INITIALIZATION ---
+            const initialize = () => {
+                document.getElementById("currentYear").textContent = new Date().getFullYear();
+                grid.insertAdjacentHTML('afterbegin', SITE_DATA.map(createCardHTML).join(''));
+                
+                initSettingsModal();
+
+                document.getElementById('reset-filter-btn').addEventListener('click', () => {
+                    const allIndex = primaryCarousel.getIndexById('all');
+                    primaryCarousel.activateByIndex(allIndex + PRIMARY_FILTERS.length, true, true);
+                });
+                
+                handlePrimaryFilterChange('all');
+                primaryCarousel.activateByIndex(PRIMARY_FILTERS.length, false, false);
+            };
+
+            initialize();
+        });
+    </script>
+</body>
+</html>
