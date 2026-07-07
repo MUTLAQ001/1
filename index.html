@@ -124,30 +124,6 @@
         }
       }
 
-      .link-button .btn-content-wrapper { display: flex; justify-content: center; align-items: center; position: relative; width: 100%; height: 100%; }
-      .link-button .btn-content { display: flex; justify-content: center; align-items: center; gap: 1rem; transition: opacity 0.3s ease, transform 0.3s ease; }
-      .link-button .btn-content.original { opacity: 1; }
-      .link-button .btn-content.loading, .link-button .btn-content.failed { position: absolute; opacity: 0; transform: translateY(10px); }
-
-      .link-button.is-loading { cursor: wait; pointer-events: none; }
-      .link-button.is-loading .btn-content.original { opacity: 0; transform: translateY(-10px); }
-      .link-button.is-loading .btn-content.loading { opacity: 1; transform: translateY(0); }
-
-      .link-button.is-failed, .link-button.is-failed:hover {
-        border-color: hsl(0, 70%, 60%); background: hsla(0, 70%, 60%, 0.1);
-        color: hsl(0, 70%, 70%); transform: none;
-      }
-      .link-button.is-failed .btn-content.original { opacity: 0; transform: translateY(-10px); }
-      .link-button.is-failed .btn-content.loading { opacity: 0; transform: translateY(-10px); }
-      .link-button.is-failed .btn-content.failed { opacity: 1; transform: translateY(0); }
-      
-      .link-button.is-fading-out {
-        transition: opacity 0.5s ease, transform 0.5s ease, max-height 0.5s ease 0.1s, padding-top 0.5s ease 0.1s, padding-bottom 0.5s ease 0.1s, margin-bottom 0.5s ease 0.1s !important;
-        opacity: 0; transform: scale(0.95); pointer-events: none;
-        max-height: 0; padding-top: 0; padding-bottom: 0; margin-bottom: -2rem;
-      }
-      .light-mode .link-button.is-failed, .light-mode .link-button.is-failed:hover { color: hsl(0, 70%, 50%); }
-
       .departments-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
       .department-section { border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.5rem; position: relative; overflow: hidden; background: radial-gradient(circle at 100% 0, hsl(var(--primary-hue) var(--primary-sat) var(--primary-light) / 0.15), transparent 50%), rgba(0, 0, 0, 0.2); transition: background-color var(--transition-fast), border-color var(--transition-fast); }
       .department-section:hover { border-color: hsl(var(--primary-hue) var(--primary-sat) var(--primary-light) / 0.3); background: radial-gradient(circle at 100% 0, hsl(var(--primary-hue) var(--primary-sat) var(--primary-light) / 0.25), transparent 60%), hsl(var(--primary-hue) var(--primary-sat) var(--primary-light) / 0.05); }
@@ -268,8 +244,8 @@
             const SITE_DATA = [
                 { category: 'college', level: 'college', title: 'روابط الكلية', icon: 'fa-building-columns', links: [ { href: "https://t.me/ENG_qu", type: "channel", icon: "fa-bullhorn", text: "قناة كلية الهندسة" }, { href: "https://t.me/engineeringQEC", type: "group", icon: "fa-users", text: "قروب كلية الهندسة" }, { href: "https://t.me/Engineeringgirls", type: "group", icon: "fa-user-friends", text: "قروب الطالبات" } ] },
                 { category: 'specializations', level: 'specializations', title: 'التخصصات الهندسية', icon: 'fa-sitemap', links: [ { href: "https://t.me/QU_CEeng", type: "group", icon: "fa-hard-hat", text: "الهندسة المدنية" }, { href: "https://t.me/QU_EEeng", type: "group", icon: "fa-bolt", text: "الهندسة الكهربائية" }, { href: "https://t.me/QU_MEeng", type: "group", icon: "fa-cogs", text: "الهندسة الميكانيكية" } ] },
-                { category: 'levels', level: 'level-1', title: 'المستوى الأول', icon: 'fa-layer-group', sections: [ { title: "مبادرات المستوى", icon: "fa-hands-helping", links: [ { href: "https://t.me/addlist/jwJuM8HdIlY3YzBk", type: "initiative", icon: "fa-star", text: "مستديم" }, { href: "https://t.me/GhimPYP", type: "initiative", icon: "fa-cloud", text: "غيم", specialAction: "ghim-fail" } ] }, { title: "قروبات الدفعة", icon: "fa-users", links: [ { href: "https://t.me/englevel1Qu", type: "channel", icon: "fa-bullhorn", text: "قناة المستوى" }, { href: "https://t.me/Level1enggg", type: "group", icon: "fa-users", text: "قروب المستوى" } ] } ] },
-                { category: 'levels', level: 'level-2', title: 'المستوى الثاني', icon: 'fa-layer-group', sections: [ { title: "مبادرات المستوى", icon: "fa-hands-helping", links: [ { href: "https://t.me/addlist/7xEQ3DIk_ZcxZTRk", type: "initiative", icon: "fa-star", text: "مستديم" }, { href: "https://t.me/GhimSci", type: "initiative", icon: "fa-cloud", text: "غيم", specialAction: "ghim-fail" } ] }, { title: "قروبات الدفعة", icon: "fa-users", links: [ { href: "https://t.me/level2eng", type: "channel", icon: "fa-bullhorn", text: "قناة المستوى" }, { href: "https://t.me/englevel2", type: "group", icon: "fa-users", text: "قروب المستوى" } ] } ] },
+                { category: 'levels', level: 'level-1', title: 'المستوى الأول', icon: 'fa-layer-group', sections: [ { title: "مبادرات المستوى", icon: "fa-hands-helping", links: [ { href: "https://t.me/addlist/jwJuM8HdIlY3YzBk", type: "initiative", icon: "fa-star", text: "مستديم" } ] }, { title: "قروبات الدفعة", icon: "fa-users", links: [ { href: "https://t.me/englevel1Qu", type: "channel", icon: "fa-bullhorn", text: "قناة المستوى" }, { href: "https://t.me/Level1enggg", type: "group", icon: "fa-users", text: "قروب المستوى" } ] } ] },
+                { category: 'levels', level: 'level-2', title: 'المستوى الثاني', icon: 'fa-layer-group', sections: [ { title: "مبادرات المستوى", icon: "fa-hands-helping", links: [ { href: "https://t.me/addlist/7xEQ3DIk_ZcxZTRk", type: "initiative", icon: "fa-star", text: "مستديم" } ] }, { title: "قروبات الدفعة", icon: "fa-users", links: [ { href: "https://t.me/level2eng", type: "channel", icon: "fa-bullhorn", text: "قناة المستوى" }, { href: "https://t.me/englevel2", type: "group", icon: "fa-users", text: "قروب المستوى" } ] } ] },
                 { category: 'levels', level: 'level-3', title: 'المستوى الثالث', icon: 'fa-layer-group', sections: [ { title: "مبادرات المستوى", icon: "fa-hands-helping", links: [ { href: "https://t.me/addlist/ioI7o4WO7QI4MDdk", type: "initiative", icon: "fa-star", text: "مستديم" }, { href: "https://t.me/zalam_level_3", type: "initiative", icon: "fa-moon", text: "ظلام" }, { href: "https://t.me/addlist/5bgC84RF_t05NmU0", type: "initiative", icon: "fa-book-open", text: "المواد المشتركة" } ] }, { title: "قروبات الدفعة", icon: "fa-users", links: [ { href: "https://t.me/EngLevel3", type: "channel", icon: "fa-bullhorn", text: "قناة المستوى" }, { href: "https://t.me/EngineeringQu", type: "group", icon: "fa-users", text: "قروب المستوى" } ] } ] },
                 { category: 'levels', level: 'level-4', title: 'المستوى الرابع - تخصصات', icon: 'fa-layer-group', type: 'multi-department', 
                   initiatives: { title: 'مبادرات مشتركة للتخصصات', icon: 'fa-star-of-life', links: [ { href: 'https://t.me/addlist/i4Vo4bwGMVU0NGNk', type: 'initiative', icon: 'fa-star', text: 'مستديم' }, { href: 'https://t.me/QU_IC102/5', type: 'initiative', icon: 'fa-book-open', text: 'المواد المشتركة' } ] },
@@ -317,19 +293,6 @@
                 const header = `<div class="card-header"><i class="fas ${cardData.icon} icon"></i><h2 class="card-title">${cardData.title}</h2></div>`;
                 const createButtonGroup = links => {
                     return `<div class="button-group">${links.map(link => {
-                        if (link.specialAction === 'ghim-fail') {
-                            return `
-                                <a href="${link.href}" class="link-button" data-special-action="ghim-fail">
-                                    <span class="btn-content-wrapper">
-                                        <span class="btn-content original"><i class="fas ${link.icon}"></i><span>${link.text}</span></span>
-                                        <span class="btn-content loading"><i class="fas fa-spinner fa-spin"></i><span>جاري التحميل...</span></span>
-                                        <span class="btn-content failed"><i class="fas fa-exclamation-circle"></i><span>فشل التحميل</span></span>
-                                    </span>
-                                </a>`;
-                        }
-                        if (link.specialAction) {
-                             return `<button class="link-button" data-special-action="${link.specialAction}"><i class="fas ${link.icon}"></i><span>${link.text}</span></button>`;
-                        }
                         return `<a href="${link.href}" target="_blank" rel="noopener noreferrer" class="link-button"><i class="fas ${link.icon}"></i><span>${link.text}</span></a>`;
                     }).join('')}</div>`;
                 };
@@ -489,43 +452,6 @@
                 applyTheme(localStorage.getItem('eng-portal-theme') || PRESET_THEMES.blue);
             };
 
-            const handleSpecialActions = (e) => {
-                const button = e.target.closest('.link-button[data-special-action]');
-                if (!button) return;
-
-                const action = button.dataset.specialAction;
-
-                if (action === 'ghim-fail') {
-                    e.preventDefault();
-
-                    const DBL_CLICK_THRESHOLD = 400;
-                    const now = new Date().getTime();
-                    const lastClick = button.lastClickTime || 0;
-
-                    if ((now - lastClick) < DBL_CLICK_THRESHOLD) {
-                        if (button.ghimTimeouts) {
-                            button.ghimTimeouts.forEach(clearTimeout);
-                        }
-                        button.classList.remove('is-loading', 'is-failed', 'is-fading-out');
-                        delete button.dataset.processing;
-                        window.open(button.href, '_blank', 'noopener,noreferrer');
-                    } else {
-                        button.lastClickTime = now;
-                        
-                        if (button.dataset.processing) return;
-                        
-                        button.dataset.processing = 'true';
-                        
-                        const t1 = setTimeout(() => button.classList.add('is-loading'), 10);
-                        const t2 = setTimeout(() => { button.classList.remove('is-loading'); button.classList.add('is-failed'); }, 1500);
-                        const t3 = setTimeout(() => button.classList.add('is-fading-out'), 3500);
-                        const t4 = setTimeout(() => { if (button.parentElement) button.remove(); }, 4100);
-
-                        button.ghimTimeouts = [t1, t2, t3, t4];
-                    }
-                }
-            };
-
             const initialize = () => {
                 document.getElementById("currentYear").textContent = new Date().getFullYear();
                 document.querySelector("#settings-btn").innerHTML = ICONS.cog;
@@ -542,8 +468,6 @@
                 initWelcomeModal(primaryCarousel, levelCarousel);
                 document.querySelector("#modal-close-btn").innerHTML = ICONS.times;
                 initCosmicEffects();
-                
-                grid.addEventListener('click', handleSpecialActions);
 
                 activePrimaryFilterId = 'all';
                 activeLevelFilterId = LEVEL_FILTERS[0].id;
